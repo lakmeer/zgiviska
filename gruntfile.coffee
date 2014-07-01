@@ -17,7 +17,9 @@ module.exports = (grunt) ->
 
     browserify:
       main:
-        options: transform: [ 'liveify' ]
+        options:
+          transform: [ 'liveify', 'browserify-shim' ]
+          bundleOptions: debug: on
         files: 'public/main.js' : [ 'src/scripts/index.ls' ]
 
     watch:
