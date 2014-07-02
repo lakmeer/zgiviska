@@ -1,3 +1,24 @@
+.crosshair {
+  position: relative;
+}
+.crosshair:before,
+.crosshair:after {
+  position: absolute;
+  content: "";
+  background: #ff6d2c;
+}
+.crosshair:before {
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+}
+.crosshair:after {
+  top: 50%;
+  left: 0;
+  height: 1px;
+  width: 100%;
+}
 html,
 body {
   margin: 0;
@@ -5,9 +26,181 @@ body {
 }
 body {
   background: black;
+  color: #00ffff;
+  font-family: 'Blender Pro', monospace;
+  text-transform: uppercase;
 }
 .greeble {
+  overflow: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0 0 0px 1px #00ffff;
+  box-shadow: none;
+}
+.button {
+  background: url('img/bg-stripes.svg') 0 0 repeat;
+  width: 89px;
+  height: 30px;
+}
+.button-frame {
+  background: url('img/button-frame.svg') 0 0 no-repeat;
+  background-size: 100% 100%;
+  width: 89px;
+  height: 30px;
+}
+.button-text {
+  font-size: 16px;
+  text-align: center;
+  line-height: 30px;
+  width: 89px;
+  height: 30px;
+}
+.button.active {
+  background: #00ffff;
+}
+.button-text.active {
+  color: #000000;
+}
+.button-array {
+  width: 190px;
+  height: 103px;
+}
+.label {
+  font-size: 12px;
+  min-height: 12px;
+  line-height: 12px;
+}
+.fancy-label {
+  line-height: 30px;
+  border-bottom: 1px solid #00ffff;
+}
+.fancy-label:before {
+  display: inline-block;
+  content: "";
+  margin-right: 6px;
+  width: 6px;
+  height: 6px;
+  vertical-align: middle;
+  background: #00ffff;
+}
+.button-array-label {
+  width: 190px;
+}
+.shape {
+  background: #00ffff;
+}
+.button-array-rule {
+  width: 190px;
+  height: 1px;
+}
+.button-diagram {
+  background: url('img/graphic-left.svg') 0 0 no-repeat;
+  width: 303px;
+  height: 257px;
+}
+.digit {
+  width: 72px;
+  height: 108px;
+}
+.digit-label {
+  width: 72px;
+}
+.digit-text-container {
+  width: 72px;
+  height: 92px;
+  background: url('img/bg-digit.svg') 0 0 no-repeat;
+}
+.digit-text {
+  font-size: 80px;
+  line-height: 87px;
+  height: 92px;
+  width: 72px;
+  text-align: center;
+}
+.hex {
+  width: 352px;
+  height: 352px;
+}
+.hex-text {
+  font-size: 130px;
+}
+.hex-label:before {
+  display: inline-block;
+  content: "";
+  margin-right: 6px;
+  width: 6px;
+  height: 6px;
+  vertical-align: middle;
+  background: #ff6d2c;
+}
+.oct-1 {
+  background-image: url('img/ring.svg');
+  width: 252px;
+  height: 252px;
+}
+.oct-2 {
+  background-image: url('img/oct.svg');
   width: 200px;
   height: 200px;
-  overflow: hidden;
+}
+.oct-3 {
+  background-image: url('img/oct.svg');
+  width: 190px;
+  height: 190px;
+}
+.oct-4 {
+  background-image: url('img/oct-filled.svg');
+  width: 55px;
+  height: 55px;
+}
+.oct-5 {
+  background-image: url('img/oct-filled.svg');
+  width: 40px;
+  height: 40px;
+}
+.hex-1 {
+  background-image: url('img/hex-filled.svg');
+  width: 252px;
+  height: 252px;
+}
+.hex-2 {
+  background-image: url('img/hex.svg');
+  width: 242px;
+  height: 242px;
+}
+.hex-3 {
+  background-image: url('img/ring.svg');
+  width: 352px;
+  height: 352px;
+}
+.ring-1 {
+  opacity: 0.3;
+  background-image: url('img/ring-1.svg');
+  width: 540px;
+  height: 540px;
+}
+.ring-2 {
+  opacity: 0.3;
+  background-image: url('img/ring-2.svg');
+  width: 680px;
+  height: 680px;
+}
+.ring-3 {
+  opacity: 0.3;
+  background-image: url('img/ring-3.svg');
+  width: 670px;
+  height: 670px;
+}
+.ring-4 {
+  opacity: 0.3;
+  background-image: url('img/ring-4.svg');
+  width: 635px;
+  height: 635px;
+}
+.ring-5 {
+  opacity: 0.3;
+  background-image: url('img/ring-5.svg');
+  width: 600px;
+  height: 600px;
 }

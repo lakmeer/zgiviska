@@ -6,7 +6,7 @@
 module.exports = {
   install: function (THREE) {
 
-    console.log('THREE Extensions: CSS Renderer');
+    console.log('ThreeJS::LoadExtension - CSS 3D Renderer');
 
     // CSS Object - Extends Object3d
     THREE.CSS3DObject = function ( element ) {

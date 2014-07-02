@@ -1,4 +1,52 @@
 
+// MIXINS
+
+.sq(@z)     { width: @z; height: @z; }
+.sz(@x, @y) { width: @x; height: @y; }
+
+.crosshair {
+  position: relative;
+  &:before, &:after {
+    position: absolute;
+    content: "";
+    background: @col_trim;
+  }
+  &:before {
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+  }
+  &:after {
+    top: 50%;
+    left: 0;
+    height: 1px;
+    width: 100%;
+  }
+}
+
+.pip(@col) {
+  &:before {
+    display: inline-block;
+    content: "";
+    margin-right: 6px;
+    width: 6px;
+    height: 6px;
+    vertical-align: middle;
+    background: @col;
+  }
+}
+
+
+// COLORS
+
+@col_main: #00ffff;
+@col_trim: #ff6d2c;
+@col_invert: black;
+
+
+// CANVAS
+
 html, body {
   margin: 0;
   padding: 0;
@@ -6,11 +54,140 @@ html, body {
 
 body {
   background: black;
+  color:@col_main;
+  font-family: 'Blender Pro', monospace;
+  text-transform: uppercase;
 }
+
+
+// GREEBLES
 
 .greeble {
-  width: 200px;
-  height: 200px;
   overflow: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0 0 0px 1px @col_main;
+  box-shadow: none;
 }
 
+.button {
+  background: url('img/bg-stripes.svg') 0 0 repeat;
+  .sz(89px, 30px);
+}
+
+.button-frame {
+  background: url('img/button-frame.svg') 0 0 no-repeat;
+  background-size: 100% 100%;
+  .sz(89px, 30px);
+}
+
+.button-text {
+  font-size: 16px;
+  text-align: center;
+  line-height: 30px;
+  .sz(89px, 30px);
+}
+
+.button.active {
+  background: @col_main;
+}
+
+.button-text.active {
+  color: @col_invert;
+}
+
+.button-array {
+  .sz(190px, 103px);
+}
+
+.label {
+  font-size: 12px;
+  min-height: 12px;
+  line-height: 12px;
+}
+
+.fancy-label {
+  line-height: 30px;
+  border-bottom: 1px solid @col_main;
+  .pip(@col_main);
+}
+
+.button-array-label {
+  width: 190px;
+}
+
+.shape {
+  background: @col_main;
+}
+
+.button-array-rule {
+  .sz( 190px, 1px );
+}
+
+.button-diagram {
+  background: url('img/graphic-left.svg') 0 0 no-repeat;
+  .sz(303px, 257px);
+  //box-shadow: 0 0 0px 1px @col_trim inset;
+}
+
+.digit {
+  width: 72px;
+  height: 108px;
+}
+
+.digit-label {
+  width: 72px;
+}
+
+.digit-text-container {
+  width: 72px;
+  height: 92px;
+  background: url('img/bg-digit.svg') 0 0 no-repeat;
+}
+
+.digit-text {
+  font-size: 80px;
+  line-height: 87px;
+  height: 92px;
+  width: 72px;
+  text-align: center;
+}
+
+.hex {
+  .sq(352px);
+}
+
+.hex-text {
+  font-size: 130px;
+}
+
+.hex-label {
+  .pip(@col_trim);
+}
+
+.octants {
+
+
+}
+
+
+.oct-1 { background-image: url('img/ring.svg');       .sq(252px); }
+.oct-2 { background-image: url('img/oct.svg');        .sq(200px); }
+.oct-3 { background-image: url('img/oct.svg');        .sq(190px); }
+.oct-4 { background-image: url('img/oct-filled.svg'); .sq(55px); }
+.oct-5 { background-image: url('img/oct-filled.svg'); .sq(40px); }
+
+.hex-1 { background-image: url('img/hex-filled.svg'); .sq(252px); }
+.hex-2 { background-image: url('img/hex.svg');        .sq(242px); }
+.hex-3 { background-image: url('img/ring.svg');       .sq(352px); }
+
+.ring-1 { opacity: 0.3; background-image: url('img/ring-1.svg'); .sq(540px); }
+.ring-2 { opacity: 0.3; background-image: url('img/ring-2.svg'); .sq(680px); }
+.ring-3 { opacity: 0.3; background-image: url('img/ring-3.svg'); .sq(670px); }
+.ring-4 { opacity: 0.3; background-image: url('img/ring-4.svg'); .sq(635px); }
+.ring-5 { opacity: 0.3; background-image: url('img/ring-5.svg'); .sq(600px); }
+
+.root, .group {
+ // .crosshair;
+}

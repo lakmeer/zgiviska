@@ -25,17 +25,15 @@
     "grunt-browserify": "^2.1.2",
     "liveify": "^0.4.0",
     "browserify-shim": "~3.6.0",
-    "grunt-contrib-connect": "^0.8.0"
+    "grunt-contrib-connect": "^0.8.0",
+    "prelude-ls": "^1.1.1"
   },
   "devDependencies": {
     "mocha": "^1.20.1"
   },
   "browser": {
-    "tween": "./src/scripts/tween/index.js",
-    "three-js": "./src/scripts/three/threejs.min.js",
-    "trackball": "./src/scripts/three/trackball-controls.js",
-    "css-renderer": "./src/scripts/three/css-renderer.js"
+    "tween-js": "./src/scripts/tween/index.js",
+    "three-js": "./src/scripts/three/index.js"
   },
-  "browserify-shim": {
-  }
+  "browserify-shim": {}
 }

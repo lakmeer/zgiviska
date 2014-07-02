@@ -1,9 +1,24 @@
 
-module.exports =
+#
+# Intro screen
+#
 
-  kitten:
-    x: 0
-    y: 0
-    z: 0
+title = {}
 
+
+#
+# Main Scene
+#
+
+main = {}
+
+
+#
+# Menu Overlay
+#
+
+menu = {}
+
+
+module.exports = { title, main, menu }
 

@@ -6,7 +6,7 @@
 module.exports = {
   install : function (THREE) {
 
-    console.log('THREE Extensions: Trackball Control');
+    console.log('ThreeJS::LoadExtension - Trackball Controls');
 
     THREE.TrackballControls = function ( object, domElement ) {
 
