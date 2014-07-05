@@ -19,6 +19,9 @@
   height: 1px;
   width: 100%;
 }
+html {
+  position: relative;
+}
 html,
 body {
   margin: 0;
@@ -29,6 +32,13 @@ body {
   color: #00ffff;
   font-family: 'Blender Pro', monospace;
   text-transform: uppercase;
+}
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
 }
 .greeble {
   overflow: hidden;
