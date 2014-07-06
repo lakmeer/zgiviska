@@ -3,10 +3,7 @@
 
 THREE = require \three-js
 
-
-# State
-
-color = new THREE.Color 1, 1, 1
+settings = require \../materials.ls
 
 
 # Greebles definition
@@ -15,10 +12,12 @@ color = new THREE.Color 1, 1, 1
 { Stack }   = require \./stack.ls
 { Digit }   = require \./digit.ls
 { Rotator } = require \./rotator.ls
-{ Sprite }:sprites  = require \./sprite.ls
+{ Sprite }  = require \./sprite.ls
+{ Line, Lines } = require \./lines.ls
 { Button, ButtonArray } = require \./button.ls
-{ Shape, Hexagon, Octagon }:shapes = require \./shape.ls
-{ Text, Label, DynamicTexture } = require \./text.ls
+{ Polygon, Square, Hexagon, Octagon } = require \./shape.ls
+{ Text, Label, TrimLabel, DynamicTexture } = require \./text.ls
+{ FilledPolygon, FilledHexagon, FilledOctagon } = require \./shape.ls
 
 
 # Misc Greebles
@@ -26,59 +25,52 @@ color = new THREE.Color 1, 1, 1
 Hex = (name, digit) ->
   group = new THREE.Object3D
 
-  layer-z = [ 0, -10, -20, -20 ]
-
   layers = [
-    ring = Sprite 'img/ring.svg', 352
-    hex1 = Hexagon 252
-    hex2 = Hexagon 252
-    fill = Sprite 'img/hex-filled.png',  252
-  ]
+    [   0, Sprite 'img/ring.svg', settings.colors.main, 352 ]
+    [ -10, Hexagon 252 ]
+    [ -20, Hexagon 252 ]
+    [ -20, FilledHexagon 252 ]
+  ].map ([z, l], i) -> l.position.z = z; group.add l; l
 
-  layers.map (l, i) ->
-    l.position.z = layer-z[i]
-    group.add l
+  label = TrimLabel name, 50, 20
+  label.position <<< { y: -90, z: 5 }
+  group.add label
 
-  #label = Label name, \hex-label
-  #label.position <<< { y: -90, z: 57 }
-  #group.add label
-
-  #text = Text digit, \hex-text
-  #text.position.z = 65
-  #group.add text
+  text = Text digit, 100, 100, { size: 130 }
+  text.position.z = 10
+  group.add text
 
   return group
 
 Octants = ->
-  group = Group \octants
+  group = new THREE.Object3D
 
   layer-z = [ 0, 10, 20, 80, 90 ]
 
   layers = [
-    Sprite "img/ring.png", 250
+    Sprite "img/ring.png", settings.colors.main, 250
     Octagon 200
     Octagon 190
-    Sprite "img/oct-filled.png", 55
-    Sprite "img/oct-filled.png", 40
+    FilledOctagon 55
+    FilledOctagon 40
   ]
 
   layers.map (l, i) ->
     l.position.z = layer-z[i]
     group.add l
 
+  Object.define-property group, \color, do
+    get: ->
+    set: (c) -> layers.map -> it.color = c
+
   return group
+
 
 
 # Export
 
-module.exports = { Group, Sprite, Text, Label, Button, ButtonArray, Octants, Hex, Digit, Rotator }
-
-module.exports.set-color = ->
-  color := it
-  sprites.set-color it
-  shapes.set-color it
-
-module.exports.get-color = ->
-  color
-
+module.exports = {
+  Group, Sprite, Text, Label, Button, ButtonArray,
+  Octants, Hex, Digit, Rotator, Line, Lines
+}
 

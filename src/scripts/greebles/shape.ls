@@ -4,43 +4,34 @@
 
 THREE = require \three-js
 
-# Internal State
-
-color      = new THREE.Color 1, 1, 1
-linewidth = 2
+settings = require \../materials.ls
 
 
 # Shape creator
 
-Shape = (verts) ->
-  geom = new THREE.Geometry
-  for [ x, y ] in verts => geom.vertices.push new THREE.Vector3 x, y, 0
-  new THREE.Line geom, new THREE.LineBasicMaterial { color, linewidth }
+Polygon = (θ, s, z) -->
+  geom = new THREE.CircleGeometry z/2, s, θ
+  geom.vertices.shift!
+  new THREE.Line geom, settings.mats.line-main
+
+FilledPolygon = (θ, s, z) -->
+  geom = new THREE.CircleGeometry z/2, s, θ
+  new THREE.Mesh geom, settings.mats.fill-main
 
 
 # Shape definitions
 
-Square = (z) ->
-  Shape [ [-z,-z],[-z,z],[z,z],[z,-z],[-z,-z] ]
+Square  = Polygon pi/4, 4
+Hexagon = Polygon pi/1, 6
+Octagon = Polygon pi/8, 8
 
-Hexagon = (z) ->
-  z = z / 2
-  a = z * (sqrt 3) / 2
-  Shape [ [-z,0],[-z/2,-a],[z/2,-a],[z,0],[z/2,a],[-z/2,a],[-z,0] ]
+FilledHexagon = FilledPolygon pi/1, 6
+FilledOctagon = FilledPolygon pi/8, 8
 
-Octagon = (z) ->
-  z = z / 2
-  a = z / (1 + sqrt 2)
-  Shape [ [-z,-a],[-a,-z],[a,-z],[z,-a],[z,a],[a,z],[-a,z],[-z,a],[-z,-a] ]
-
-
-# Color functions
-
-set-color = -> color := it
-get-color = -> color
+Circle = Polygon 0, 64
 
 
 # Export
 
-module.exports = { Shape, Square, Hexagon, Octagon, set-color, get-color }
+module.exports = { Polygon, Circle, Hexagon, Octagon, FilledPolygon, FilledHexagon, FilledOctagon }
 

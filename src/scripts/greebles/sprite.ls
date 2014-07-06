@@ -4,47 +4,44 @@
 THREE = require \three-js
 
 
-# State
+# Catalog
 
-color = new THREE.Color 1, 1, 1
+all = []
 
 
 # Helpers
 
-with-tex = (tex) ->
+with-tex = (tex, color) ->
   map: tex
   color: color
   transparent: yes
   side: THREE.DoubleSide
-  blending: THREE.AdditiveBlending
+  #blending: THREE.AdditiveBlending
   depth-test: no
 
-
-# Instance Method Mixin
-
+auto-texture = (img) ->
+  if typeof img is \string
+    new THREE.ImageUtils.loadTexture img
+  else
+    new THREE.Texture img
 
 
 # Constructor
 
-Sprite = (img, w, h = w) ->
-
-  tex = new (if typeof img is \string then THREE.ImageUtils.loadTexture else THREE.Texture ) img
+Sprite = (img, color, w, h = w) ->
+  tex = auto-texture img
   tex.anisotropy = 16
   tex.needs-update = yes
 
-  mat = new THREE.MeshBasicMaterial with-tex tex
+  mat = new THREE.MeshBasicMaterial with-tex tex, color
   obj = new THREE.Mesh (new THREE.PlaneGeometry w, h), mat
+
+  all.push obj
 
   return obj
 
 
-# Static methods
-
-set-color = -> color := it
-get-color = -> color
-
-
 # Export
 
-module.exports = { Sprite, set-color, get-color }
+module.exports = { Sprite, all }
 

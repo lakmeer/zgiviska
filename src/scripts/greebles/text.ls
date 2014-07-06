@@ -5,6 +5,8 @@ THREE = require \three-js
 
 { Sprite } = require \./sprite.ls
 
+settings = require \../materials.ls
+
 
 # Internal
 
@@ -42,7 +44,7 @@ draw-bullet = (w, h, z) ->
 
 # Greebles
 
-DynamicTexture = (w, h, λ) ->
+DynamicTexture = (w, h, λ, color = settings.colors.main) ->
 
   # First, provide a canvas to draw the texture on with requested aspect
   drawing-canvas = document.create-element \canvas
@@ -63,8 +65,7 @@ DynamicTexture = (w, h, λ) ->
   mipmap-ctx.draw-image drawing-canvas, 0, 0, 1024, 1024
 
   # Now sprite the mipmappable texture, with the plane at the original size.
-  Sprite drawing-canvas, w, h
-  Sprite mipmap-canvas, w, h
+  Sprite mipmap-canvas,  color, w, h
 
 Text = (text, w, h, { align, size }) ->
   DynamicTexture w, h, (w, h) ->
@@ -73,12 +74,22 @@ Text = (text, w, h, { align, size }) ->
 
 Label = (text, w, h) ->
   DynamicTexture w, h, (w, h) ->
-    draw-text.call      this, w, h, { text, size: 12, align: \left, offset: 20 }
+    draw-text.call      this, w, h, { text, size: 12, align: \left, offset: 16 }
     draw-underline.call this, w, h, 2
     draw-bullet.call    this, w, h, 9
 
+TrimLabel = (text, w, h) ->
+  group = new THREE.Object3D
+
+  main = DynamicTexture w, h, (w, h) ->
+    draw-text.call      this, w, h, { text, size: 12, align: \left, offset: 16 }
+
+  trim = DynamicTexture w, h, ((w, h) -> draw-bullet.call this, w, h, 9), settings.colors.trim
+
+  [ main, trim ].map group~add
+  return group
 
 # Export
 
-module.exports = { Text, Label, DynamicTexture }
+module.exports = { Text, Label, TrimLabel, DynamicTexture }
 

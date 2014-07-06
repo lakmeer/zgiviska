@@ -12,10 +12,11 @@ global <<< require \prelude-ls
 
 log = -> console.log.apply console, &; &0
 
+mix = Object.define-property
 
 
 # Install to global namespace
 
-global <<< { log }
+global <<< { log, mix }
 
 

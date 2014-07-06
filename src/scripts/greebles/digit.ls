@@ -5,13 +5,15 @@
 { Text   } = require \./text.ls
 { Sprite } = require \./sprite.ls
 
+settings = require \../materials.ls
+
 
 # Digit Greeble
 
 Digit = (name, value) ->
   group = Group!
 
-  backing = Sprite \img/bg-digit.png, 72, 90
+  backing = Sprite \img/bg-digit.png, settings.colors.main, 72, 90
   backing.position.y = -9
   group.add backing
 

@@ -1,16 +1,40 @@
 
-{ Group }  = require \./group.ls
+# Require
+
+THREE = require \three-js
+
+{ Lines }  = require \./lines.ls
 { Sprite } = require \./sprite.ls
 { Label, Text }  = require \./text.ls
 
-Button = (text = 'button') ->
-  group = Group "button active"
-  frame = Sprite \img/button-frame.png, 89, 30
-  back  = Sprite \img/bg-stripes.png,   89, 30
-  text  = Text text, 89, 30, size: 16
+settings = require \../materials.ls
 
-  frame.position.z = text.position.z  = 6
-  [ back, frame, text ].map group~add
+
+# Greebles Definitions
+
+Button = (text = 'button') ->
+
+  button-width  = w = 90
+  button-height = h = 30
+  button-depth  = d = 6
+  font-size     = f = 16
+  corner-length = l = 6
+
+  group = new THREE.Object3D
+  back  = Sprite \img/bg-stripes.png, settings.colors.main, w, h
+  text  = Text text, w, h, size: font-size
+
+  lines = Lines [
+    [ [ w/-2, h/ 2 - l ], [ w/-2, h/ 2 ], [ w/-2 + l, h/ 2 ] ]
+    [ [ w/ 2, h/-2 + l ], [ w/ 2, h/-2 ], [ w/ 2 - l, h/-2 ] ]
+    [ [ w/ 2, h/ 2 - l ], [ w/ 2, h/ 2 ], [ w/ 2 - l, h/ 2 ] ]
+    [ [ w/-2, h/-2 + l ], [ w/-2, h/-2 ], [ w/-2 + l, h/-2 ] ]
+  ]
+
+  lines.position.z = text.position.z = d
+
+  [ back, text, lines ].map group~add
+
   return group
 
 
@@ -21,19 +45,19 @@ ButtonArray = (name, texts) ->
   b = 51
 
   button-coords = [ [ a, -b ], [ -a, -b ], [ a, b ], [ -a, b ] ]
-  object = Group!
+  group = new THREE.Object3D
 
   label = Label name, 200, 30
   label.position.y = 45
-  object.add label
+  group.add label
 
   buttons = texts.map Button
   buttons.map (button, i) ->
     button.position.y = button-coords[i][0] - 16
     button.position.x = button-coords[i][1]
-    object.add button
+    group.add button
 
-  return object
+  return group
 
 
 module.exports = { Button, ButtonArray }

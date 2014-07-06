@@ -7,7 +7,10 @@ require! './helpers.ls'
 
 Stage    = require \./stage.ls
 Greebles = require \./greebles/index.ls
-Greebles.set-color new THREE.Color 0.2, 1, 0.4
+
+# Settings
+
+settings = require \./materials.ls
 
 
 # Stage setup
@@ -18,7 +21,7 @@ root  = new THREE.Object3D
 
 # Central core
 
-rotator = Greebles.Rotator 5, 600
+rotator = Greebles.Rotator 600
 rotator.position.z = -450
 
 hex = Greebles.Hex \pitch, \F
@@ -52,9 +55,7 @@ right-home.position.y = -90
 # Button diagram
 
 left-gfx = new THREE.Object3D
-left-gfx.add Greebles.Sprite \img/button-diagram.png, 303, 303
-
-mat = new THREE.LineDashedMaterial color: Greebles.get-color!, linewidth: 2
+left-gfx.add Greebles.Sprite \img/button-diagram.png, settings.colors.main, 303, 303
 
 lines =
   [ [ 98, -33 ], [  74,  -33 ] ]
@@ -63,14 +64,9 @@ lines =
   [ [ 67,  93 ], [ -100,  93 ], [ -152,   38 ] ]
   [ [ 58,  82 ], [  -36,  82 ], [  -74,  130 ], [ -102, 130 ] ]
 
-lines = for verts in lines
-  geom = new THREE.Geometry
-  for [ x, y ] in verts
-    geom.vertices.push new THREE.Vector3 x, y, 0
+lines = Greebles.Lines lines
 
-  new THREE.Line geom, mat
-
-lines.map left-gfx~add
+left-gfx.add lines
 
 left-gfx.position <<< { x: -197, y: 38 }
 
@@ -127,7 +123,8 @@ window.onload = ->
   stage.add-to-page!
 
   # Orbit camera
-  stage.camera.position <<< z: 1200# , x:500, y: -20
+  #stage.camera.position <<< z: 200, x:200, y: -100
+  stage.camera.position <<< z: 1200
 
   # Go
   stage.animate ->
@@ -136,5 +133,6 @@ window.onload = ->
     stage.controller.update!
     stage.render!
 
+  # Expose stop function
   window.stop = stage~stop
 
