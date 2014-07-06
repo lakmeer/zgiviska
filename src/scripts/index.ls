@@ -7,7 +7,7 @@ require! './helpers.ls'
 
 Stage    = require \./stage.ls
 Greebles = require \./greebles/index.ls
-Greebles.use-default-color new THREE.Color 0.2, 1, 0.4
+Greebles.set-color new THREE.Color 0.2, 1, 0.4
 
 
 # Stage setup
@@ -112,4 +112,6 @@ window.onload = ->
     #root.rotation.y += 0.01
     stage.controller.update!
     stage.render!
+
+  window.stop = stage~stop
 

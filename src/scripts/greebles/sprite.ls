@@ -6,14 +6,14 @@ THREE = require \three-js
 
 # State
 
-default-color = new THREE.Color 1, 1, 1
+color = new THREE.Color 1, 1, 1
 
 
 # Helpers
 
 with-tex = (tex) ->
   map: tex
-  color: default-color
+  color: color
   transparent: yes
   side: THREE.DoubleSide
   blending: THREE.AdditiveBlending
@@ -40,10 +40,11 @@ Sprite = (img, w, h = w) ->
 
 # Static methods
 
-set-default-color = (color) -> default-color := color
+set-color = -> color := it
+get-color = -> color
 
 
 # Export
 
-module.exports = { Sprite, set-default-color }
+module.exports = { Sprite, set-color, get-color }
 
