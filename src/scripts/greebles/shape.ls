@@ -7,7 +7,7 @@ THREE = require \three-js
 # Internal State
 
 color      = new THREE.Color 1, 1, 1
-line-width = 4
+linewidth = 2
 
 
 # Shape creator
@@ -15,7 +15,7 @@ line-width = 4
 Shape = (verts) ->
   geom = new THREE.Geometry
   for [ x, y ] in verts => geom.vertices.push new THREE.Vector3 x, y, 0
-  new THREE.Line geom, new THREE.LineBasicMaterial { color, line-width }
+  new THREE.Line geom, new THREE.LineBasicMaterial { color, linewidth }
 
 
 # Shape definitions

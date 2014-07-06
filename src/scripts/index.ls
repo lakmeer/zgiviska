@@ -48,7 +48,30 @@ left-home.position.y = -90
 right-home = Greebles.Button \home
 right-home.position.y = -90
 
-left-gfx  = Greebles.Sprite \img/button-diagram.png, 303, 303
+
+# Button diagram
+
+left-gfx = new THREE.Object3D
+left-gfx.add Greebles.Sprite \img/button-diagram.png, 303, 303
+
+mat = new THREE.LineDashedMaterial color: Greebles.get-color!, linewidth: 2
+
+lines =
+  [ [ 98, -33 ], [  74,  -33 ] ]
+  [ [ 98, -70 ], [  74,  -70 ] ]
+  [ [152, -127], [  91, -127 ], [   74, -108 ], [   74,  76 ] ]
+  [ [ 67,  93 ], [ -100,  93 ], [ -152,   38 ] ]
+  [ [ 58,  82 ], [  -36,  82 ], [  -74,  130 ], [ -102, 130 ] ]
+
+lines = for verts in lines
+  geom = new THREE.Geometry
+  for [ x, y ] in verts
+    geom.vertices.push new THREE.Vector3 x, y, 0
+
+  new THREE.Line geom, mat
+
+lines.map left-gfx~add
+
 left-gfx.position <<< { x: -197, y: 38 }
 
 right-gfx = left-gfx.clone!
@@ -104,7 +127,7 @@ window.onload = ->
   stage.add-to-page!
 
   # Orbit camera
-  stage.camera.position <<< z: 1200
+  stage.camera.position <<< z: 1200# , x:500, y: -20
 
   # Go
   stage.animate ->

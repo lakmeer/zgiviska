@@ -79,6 +79,6 @@ module.exports.set-color = ->
   shapes.set-color it
 
 module.exports.get-color = ->
-  color!
+  color
 
 
