@@ -4,6 +4,15 @@
 THREE = require \three-js
 
 
+# Reusable settings
+
+fill-opts = (color, opacity) ->
+  color: color
+  transparent: yes
+  opacity: opacity
+  side: THREE.DoubleSide
+  blending: THREE.AdditiveBlending
+
 # Line Width
 
 linewidth = 1
@@ -25,8 +34,10 @@ colors =
 mats =
   line-main : new THREE.LineBasicMaterial { color: colors.main, linewidth }
   line-trim : new THREE.LineBasicMaterial { color: colors.trim, linewidth }
-  fill-main : new THREE.MeshBasicMaterial { color: colors.main, transparent: yes, opacity: 0.3 }
+  fill-main : new THREE.MeshBasicMaterial fill-opts colors.main, 0.3
   fill-trim : new THREE.MeshBasicMaterial { color: colors.trim, transparent: yes, opacity: 0.3 }
+  strong-main : new THREE.MeshBasicMaterial fill-opts colors.main, 1
+  strong-trim : new THREE.MeshBasicMaterial { color: colors.trim, transparent: yes }
 
 
 # Exports

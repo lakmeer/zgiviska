@@ -65,11 +65,15 @@ DynamicTexture = (w, h, λ, color = settings.colors.main) ->
   mipmap-ctx.draw-image drawing-canvas, 0, 0, 1024, 1024
 
   # Now sprite the mipmappable texture, with the plane at the original size.
-  Sprite mipmap-canvas,  color, w, h
+  Sprite mipmap-canvas, color, w, h
 
-Text = (text, w, h, { align, size }) ->
-  DynamicTexture w, h, (w, h) ->
-    draw-text.call this, w, h, { text, size, align }
+Text = (text, w, h, { align, size, color }) ->
+  if color?
+    DynamicTexture w, h, ((w, h) ->
+      draw-text.call this, w, h, { text, size, align }), color
+  else
+    DynamicTexture w, h, (w, h) ->
+      draw-text.call this, w, h, { text, size, align }
     #draw-border.call this, w, h, 0.5
 
 Label = (text, w, h) ->

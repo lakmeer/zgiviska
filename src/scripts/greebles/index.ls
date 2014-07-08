@@ -12,7 +12,7 @@ settings = require \../materials.ls
 { Stack }   = require \./stack.ls
 { Digit }   = require \./digit.ls
 { Rotator } = require \./rotator.ls
-{ Sprite }  = require \./sprite.ls
+{ Sprite, all }  = require \./sprite.ls
 { Line, Lines } = require \./lines.ls
 { Button, ButtonArray } = require \./button.ls
 { Polygon, Square, Hexagon, Octagon } = require \./shape.ls
@@ -71,6 +71,6 @@ Octants = ->
 
 module.exports = {
   Group, Sprite, Text, Label, Button, ButtonArray,
-  Octants, Hex, Digit, Rotator, Line, Lines
+  Octants, Hex, Digit, Rotator, Line, Lines, allSprites : all
 }
 

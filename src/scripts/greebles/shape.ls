@@ -21,7 +21,6 @@ FilledPolygon = (θ, s, z) -->
 
 # Shape definitions
 
-Square  = Polygon pi/4, 4
 Hexagon = Polygon pi/1, 6
 Octagon = Polygon pi/8, 8
 
@@ -30,8 +29,20 @@ FilledOctagon = FilledPolygon pi/8, 8
 
 Circle = Polygon 0, 64
 
+Rect = (w, h) ->
+  geom = new THREE.PlaneGeometry w, h
+  new THREE.Mesh geom, settings.mats.line-main
+
+FilledRect = (w, h, { color }) ->
+  geom = new THREE.PlaneGeometry w, h
+  new THREE.Mesh geom, color or settings.mats.fill-main
+
 
 # Export
 
-module.exports = { Polygon, Circle, Hexagon, Octagon, FilledPolygon, FilledHexagon, FilledOctagon }
+module.exports = {
+  Circle,
+  Polygon, Hexagon, Octagon, Rect,
+  FilledPolygon, FilledHexagon, FilledOctagon, FilledRect
+}
 

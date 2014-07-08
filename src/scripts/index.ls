@@ -7,6 +7,7 @@ require! './helpers.ls'
 
 Stage    = require \./stage.ls
 Greebles = require \./greebles/index.ls
+Key      = require \./keycodes.ls
 
 # Settings
 
@@ -42,8 +43,8 @@ right-stick.position <<< { x: 520, y: -325, z: -20 }
 left-button-group  = Greebles.Group \left-button-group  x: -250, y: -247
 right-button-group = Greebles.Group \right-button-group x:  250, y: -247
 
-left-buttons  = Greebles.ButtonArray 'Left  wand button array', [ 1, 2, 3, 4 ]
-right-buttons = Greebles.ButtonArray 'Right wand button array', [ 1, 2, 3, 4 ]
+left-buttons  = Greebles.ButtonArray 'Left  wand button array', [ 1, 2, 4, 3 ]
+right-buttons = Greebles.ButtonArray 'Right wand button array', [ 1, 2, 4, 3 ]
 
 left-home = Greebles.Button \home
 left-home.position.y = -90
@@ -135,4 +136,27 @@ window.onload = ->
 
   # Expose stop function
   window.stop = stage~stop
+
+
+  # Key toggle
+
+  key-toggle = (direction, { which }) -->
+    switch which
+    | Key.TILDE => left-home.set-active direction
+    | Key.NUM_1 => left-buttons.set-active  0, direction
+    | Key.NUM_2 => left-buttons.set-active  1, direction
+    | Key.NUM_3 => left-buttons.set-active  2, direction
+    | Key.NUM_4 => left-buttons.set-active  3, direction
+    | Key.NUM_5 => right-buttons.set-active 0, direction
+    | Key.NUM_6 => right-buttons.set-active 1, direction
+    | Key.NUM_7 => right-buttons.set-active 2, direction
+    | Key.NUM_8 => right-buttons.set-active 3, direction
+    | Key.NUM_9 => right-home.set-active direction
+    | Key.NUM_0 => log "No binding: 0"
+    | _  => log "Key unassigned:", which
+
+
+  # Add keyboard listeners for testing interaction
+  document.add-event-listener \keydown, key-toggle on
+  document.add-event-listener \keyup, key-toggle off
 
