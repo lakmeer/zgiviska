@@ -10,6 +10,7 @@ camera     = new THREE.PerspectiveCamera 40, (window.innerWidth / window.innerHe
 scene      = new THREE.Scene
 renderer   = new THREE.WebGLRenderer antialias: on
 controller = new THREE.TrackballControls camera
+origin     = new THREE.Object3D
 
 
 # Allow canvas to respond to window
@@ -20,8 +21,6 @@ establish-sizes = ->
   camera.aspect = w / h
   camera.updateProjectionMatrix!
   renderer.set-size w, h
-
-establish-sizes!
 
 window.add-event-listener \resize, establish-sizes
 
@@ -45,12 +44,13 @@ render = -> renderer.render scene, camera
 
 Stage = ->
 
+  establish-sizes!
+
   scene.fog = new THREE.Fog 0x000000, 1500, 10000
 
-  add-to-page = ->
-    document.body.appendChild( renderer.dom-element );
+  add-to-page = -> document.body.appendChild( renderer.dom-element );
 
-  { add-to-page, render, animate, camera, controller, stop, add: scene~add }
+  { add-to-page, render, animate, camera, controller, origin, stop, add: scene~add }
 
 
 # Export

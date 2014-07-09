@@ -35,9 +35,9 @@ mats =
   line-main : new THREE.LineBasicMaterial { color: colors.main, linewidth }
   line-trim : new THREE.LineBasicMaterial { color: colors.trim, linewidth }
   fill-main : new THREE.MeshBasicMaterial fill-opts colors.main, 0.3
-  fill-trim : new THREE.MeshBasicMaterial { color: colors.trim, transparent: yes, opacity: 0.3 }
+  fill-trim : new THREE.MeshBasicMaterial fill-opts colors.trim, 0.3
   strong-main : new THREE.MeshBasicMaterial fill-opts colors.main, 1
-  strong-trim : new THREE.MeshBasicMaterial { color: colors.trim, transparent: yes }
+  strong-trim : new THREE.MeshBasicMaterial fill-opts colors.trim, 1
 
 
 # Exports

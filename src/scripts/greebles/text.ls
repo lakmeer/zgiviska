@@ -74,7 +74,6 @@ Text = (text, w, h, { align, size, color }) ->
   else
     DynamicTexture w, h, (w, h) ->
       draw-text.call this, w, h, { text, size, align }
-    #draw-border.call this, w, h, 0.5
 
 Label = (text, w, h) ->
   DynamicTexture w, h, (w, h) ->

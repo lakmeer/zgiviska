@@ -120,17 +120,22 @@ root.position.y = 100
 
 window.onload = ->
 
+  # Inspect specific elements
+  inspect-target = right-stick
+
   # Add renderer to document
   stage.add-to-page!
 
-  # Orbit camera
-  #stage.camera.position <<< z: 200, x:200, y: -100
-  stage.camera.position <<< z: 1200
+  stage.camera.position.z = 1200
+  #stage.camera.position = inspect-target.position.clone!
+  #stage.camera.position.z += 500
+  #stage.controller.target = inspect-target.position.clone!
+  #stage.controller.target.y += 100
 
   # Go
   stage.animate ->
     TWEEN.update!
-    #root.rotation.y += 0.01
+    #inspect-target.rotation.y += 0.02
     stage.controller.update!
     stage.render!
 
@@ -139,7 +144,6 @@ window.onload = ->
 
 
   # Key toggle
-
   key-toggle = (direction, { which }) -->
     switch which
     | Key.TILDE => left-home.set-active direction
@@ -152,7 +156,14 @@ window.onload = ->
     | Key.NUM_7 => right-buttons.set-active 2, direction
     | Key.NUM_8 => right-buttons.set-active 3, direction
     | Key.NUM_9 => right-home.set-active direction
-    | Key.NUM_0 => log "No binding: 0"
+    | Key.Q => right-stick.set-octant (if direction then 1 else 0)
+    | Key.W => right-stick.set-octant (if direction then 2 else 0)
+    | Key.E => right-stick.set-octant (if direction then 3 else 0)
+    | Key.R => right-stick.set-octant (if direction then 4 else 0)
+    | Key.T => right-stick.set-octant (if direction then 5 else 0)
+    | Key.Y => right-stick.set-octant (if direction then 6 else 0)
+    | Key.U => right-stick.set-octant (if direction then 7 else 0)
+    | Key.I => right-stick.set-octant (if direction then 8 else 0)
     | _  => log "Key unassigned:", which
 
 
